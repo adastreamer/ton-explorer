@@ -42,12 +42,25 @@ button{
   border-bottom: 1px solid lightgrey;
   padding: 10px 0 14px;
 }
-
-form a{
-  color: grey;
+pre{
+  text-align: left;
+  font-family: monospace;
+  width: 100%;
+  background: lightgoldenrodyellow;
+  padding: 10px;
   font-size: 11px;
+  word-break: break-word;
 }
-
+.balance{
+  background: lightgoldenrodyellow;
+  padding: 0 10px;
+}
+.small{
+  font-size: 11px;
+  display: inline-block;
+  margin-top: 10px;
+  color: lightgrey;
+}
 </style>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -70,10 +83,15 @@ form a{
     <br/>
     <h1>Enter Address</h1>
     <form method="POST" action="/address">
-      <input type="text" name="address"/><br/><br/>
-      <small>Enter address in any valid format, for example:<br/><a href="/address/8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d">8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d</a> or<br/><a href="/address/Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb">Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb</a></small><br/><br/>
-      <button type="submit">Submit</button>
+      <input type="text" name="address" value="{{address}}"/><br/><br/>
+      <button type="submit">Submit</button><br/>
+      <a class="small" href="/">or go home</a>
     </form>
+    <br/>
+    <h2>Balance: <b class="balance">{{balance}}</b> Gram</h2>
+    <br/>
+    <pre>{{data}}</pre>
   </center>
 </body>
 </html>
+
