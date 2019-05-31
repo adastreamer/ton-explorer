@@ -34,7 +34,6 @@ catch {
     time = "ERROR GETTING TIME"
   end
 } }
-
 --
 
 res, err = httpc:request_uri("http://127.0.0.1:8000/getaccount/" .. address, { method = "GET" })
