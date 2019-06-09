@@ -8,7 +8,5 @@ opm --cwd install ledgetech/lua-resty-http
 # RUN
 
 ```
-LUA_PATH=./resty_modules/lualib/?.lua nginx -p `pwd`/ -c conf/nginx.conf
+LUA_PATH="./?.lua;./resty_modules/lualib/?.lua" nginx -p `pwd`/ -c conf/nginx.conf
 ```
-
-
