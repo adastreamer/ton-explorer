@@ -30,6 +30,9 @@ local function get_block(block_id)
   -- local data_value = string.match(data, 'amount:.var_uint%s*len:(%d+)%s*value:(%d+)..')
   local at, lt1, lt2 = string.match(data, "block header.+" .. block_id:gsub("%(", "%%%("):gsub("%)", "%%%)") .. " @ (%d+) lt (%d+) .. (%d+)")
   local res, err, errcode, sqlstate = db:query("insert into ton.blocks (at, lt1, lt2, header, content) values ('"..at.."','"..lt1.."','"..lt2.."','"..block_id.."','"..data.."');")
+  if res then
+    print("Parsed ", block_id)
+  end
   local previous_block_id = string.match(data, "previous block #.+: (.+)\n")
 
   res, err, errcode, sqlstate = db:query("select count(*) as count from ton.blocks where (header=\""..previous_block_id.."\");")
@@ -37,7 +40,7 @@ local function get_block(block_id)
   if (res[1].count == "0") then
     return get_block(previous_block_id)
   else
-  	print("Block already exists, doing nothing")
+  	return
   end
 end
 
@@ -52,6 +55,5 @@ end
 
 while true do
   local status, result = pcall(get_from_last)
-  print(result)
   os.execute("sleep 1")
 end
