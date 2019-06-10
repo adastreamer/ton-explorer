@@ -18,7 +18,7 @@ local function init_db()
   if not res then
     print(ngx.ERR, "bad result #1: ", err, ": ", errcode, ": ", sqlstate, ".")
   end
-  res, err, errcode, sqlstate = db:query("create table ton.blocks( at BIGINT, lt1 BIGINT, lt2 BIGINT, header VARCHAR(255) UNIQUE PRIMARY KEY, content TEXT(65535), INDEX (at, lt1, lt2, header) );")
+  res, err, errcode, sqlstate = db:query("create table ton.blocks( at BIGINT, lt1 BIGINT, lt2 BIGINT, header VARCHAR(255) UNIQUE PRIMARY KEY, content TEXT(65535), INDEX (at, lt1, lt2, header), FULLTEXT KEY ft_header (header), FULLTEXT KEY ft_content (content), FULLTEXT KEY ft_full (header, content) );")
   if not res then
     print(ngx.ERR, "bad result #2: ", err, ": ", errcode, ": ", sqlstate, ".")
   end

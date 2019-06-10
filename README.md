@@ -17,6 +17,7 @@ LUA_PATH=";;./?.lua;./resty_modules/lualib/?.lua" nginx -p `pwd`/ -c conf/nginx.
 CREATE DATABASE ton;
 CREATE USER 'ton'@'localhost' IDENTIFIED BY 'ton';
 GRANT ALL PRIVILEGES ON * . * TO 'ton'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
 # RUN SCRIPTS
