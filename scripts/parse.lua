@@ -31,17 +31,8 @@ local function get_block(block_id)
   local at, lt1, lt2 = string.match(data, "block header.+" .. block_id:gsub("%(", "%%%("):gsub("%)", "%%%)") .. " @ (%d+) lt (%d+) .. (%d+)")
   local res, err, errcode, sqlstate = db:query("insert into ton.blocks (at, lt1, lt2, header, content) values ('"..at.."','"..lt1.."','"..lt2.."','"..block_id.."','"..data.."');")
   local previous_block_id = string.match(data, "previous block #.+: (.+)\n")
-  print("Trying to find prev block in database...")
-  
-  -- res, err, errcode, sqlstate = db:query("select count(header) as count from ton.blocks;")
 
   res, err, errcode, sqlstate = db:query("select count(*) as count from ton.blocks where (header=\""..previous_block_id.."\");")
-  
-  -- print("res")
-  -- print(res[1].count)
-  -- for k,v in pairs(res) do
-  --    print(k, "=", v)
-  -- end
 
   if (res[1].count == "0") then
     return get_block(previous_block_id)
