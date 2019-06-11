@@ -11,17 +11,6 @@
   font-family: Arial;
 }
 
-input{
-  width: 100%;
-  max-width: 600px;
-  height: 30px;
-  font-family: monospace;
-  font-size: 14px;
-  line-height: 30px;
-  border: 1px solid lightgrey;
-  text-align: center;
-}
-
 header{
   position: relative;
   display: block;
@@ -59,6 +48,17 @@ header{
   margin-left: 10px;
 }
 
+input{
+  width: 100%;
+  max-width: 600px;
+  height: 30px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 30px;
+  border: 1px solid lightgrey;
+  text-align: center;
+}
+
 button{
   width: 100%;
   max-width: 100px;
@@ -82,6 +82,25 @@ a:hover{
   text-decoration: none;
 }
 
+pre{
+  text-align: left;
+  font-family: monospace;
+  width: 100%;
+  background: lightgoldenrodyellow;
+  padding: 10px;
+  font-size: 11px;
+  word-break: break-word;
+}
+.balance{
+  background: lightgoldenrodyellow;
+  padding: 0 10px;
+}
+.small{
+  font-size: 11px;
+  display: inline-block;
+  margin-top: 10px;
+  color: lightgrey;
+}
 </style>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -111,12 +130,18 @@ a:hover{
       </div>
     </header>
     <br/>
-    <h1>Enter Address</h1>
-    <form method="POST" action="/address">
-      <input type="text" name="address"/><br/><br/>
-      <small>Enter address in any valid format, for example:<br/><a href="/address/8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d">8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d</a> or<br/><a href="/address/Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb">Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb</a></small><br/><br/>
-      <button type="submit">Submit</button>
+    <h1>Enter Block ID</h1>
+    <form method="POST" action="/block">
+      <input type="text" name="block" value="{{block}}"/><br/><br/>
+      <small>Enter a block ID, for example <a href="/block/(-1,8000000000000000,168513):15B636FF73072FF70F525B126C6DF772E9A0342F1FD0F5FBE3426D869B61A515:B1AA49E0E75332B1BFCD35E97630924420B9899137BC5D30571CEA07CFF50F11">(-1,8000000000000000,168513):15B636FF73072FF70F525B126C6DF772E9A0342F1FD0F5FBE3426D869B61A515:B1AA49E0E75332B1BFCD35E97630924420B9899137BC5D30571CEA07CFF50F11</a></small><br/><br/>
+      <button type="submit">Submit</button><br/>
+      <a class="small" href="/block">reset search</a>
     </form>
+    <br/>
+    {% if block_data then %}
+      <pre>{{block_data}}</pre>
+    {% end %}
   </center>
 </body>
 </html>
+

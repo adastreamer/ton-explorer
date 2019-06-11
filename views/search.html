@@ -145,6 +145,7 @@ pre{
         </div>
         <ul class="menu">
           <li><a href="/">Home</a></li>
+          <li><a href="/block">Block Explorer</a></li>
           <li><a href="/search">Block Search</a></li>
         </ul>
       </div>
@@ -172,11 +173,11 @@ pre{
       <pre>
 
         {% for k, v in ipairs(res) do %}
-          <a href="" target="_blank"><b>{{v.header}} @ {{v.at}}</b></a>
+          <a href="/block/{{v.header}}?q={{q}}" target="_blank"><b>{{v.header}} @ {{v.at}}</b></a>
 <div>
-{% q_left, q_match, q_right = string.match(v.content, "(%C*)("..q..")(%C*)") %}
+{% q_match = string.match(v.content, "("..q..")") %}
 ...
-{{ q_left }}<span class="hl">{{ q_match }}</span>{{ q_right }}
+{{ v.sub }}
 ...
 </div>
         {% end %}
