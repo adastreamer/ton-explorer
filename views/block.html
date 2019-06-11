@@ -101,6 +101,11 @@ pre{
   margin-top: 10px;
   color: lightgrey;
 }
+
+.hl{
+  background: lightblue;
+  color: black;
+}
 </style>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -139,7 +144,7 @@ pre{
     </form>
     <br/>
     {% if block_data then %}
-      <pre>{{block_data}}</pre>
+      <pre>{*block_data*}</pre>
     {% end %}
   </center>
 </body>

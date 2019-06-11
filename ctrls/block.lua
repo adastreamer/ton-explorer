@@ -21,6 +21,9 @@ local block = args["block"]
 try_redirect_to(block)
 
 block = string.match(ngx.var.uri, '/.+/(.+)')
+
+local args, err = ngx.req.get_uri_args()
+local q = args["q"]
 --
 
 -- ngx.say(block)
@@ -56,10 +59,12 @@ if res then
   block_data = res.body
 end
 
+
 data = {
   time = time,
   block = block,
-  block_data = block_data
+  block_data = block_data,
+  q = q
 }
 
 template.render("block.html", data)
