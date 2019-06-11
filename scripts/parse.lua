@@ -6,12 +6,7 @@ local cjson = require "cjson"
 local httpc = http.new()
 local db 	= mysql:new()
 
-local ok, err, errcode, sqlstate = db:connect({
-   host = "127.0.0.1",
-  port = 3306,
-  database = "ton",
-  user = "ton",
-  password = "ton"})
+local ok, err, errcode, sqlstate = db:connect({ host = "127.0.0.1", port = 3306, database = "ton", user = "ton", password = "ton"})
 
 local function init_db()
   local res, err, errcode, sqlstate = db:query("drop table ton.blocks;")

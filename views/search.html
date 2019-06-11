@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TON Explorer</title>
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="apple-touch-icon image_src" href="/favicon.ico"/>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+
+<style>
+*{
+  font-family: Arial;
+}
+
+input{
+  width: 100%;
+  max-width: 600px;
+  height: 30px;
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 30px;
+  border: 1px solid lightgrey;
+  text-align: center;
+}
+
+header{
+  position: relative;
+  display: block;
+  text-align: left;
+  width: 100%;
+  font-weight: lighter;
+  font-size: 11px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.container{
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+}
+
+.time{
+  display: inline-block;
+  padding: 10px 0 14px;
+}
+
+.menu{
+  float: right;
+  display: inline-block;
+  padding: 10px 0 14px;
+  margin: 0;
+}
+
+.menu li{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+}
+
+.paginator{
+  width: 100%;
+  text-align: right;
+  display: inline-block;
+  padding: 10px 0 14px;
+  margin: 0;
+}
+
+.paginator li{
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  margin-left: 10px;
+}
+
+button{
+  width: 100%;
+  max-width: 100px;
+  height: 30px;
+  background: lightblue;
+  border: 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+a{
+  color: grey;
+  font-size: 11px;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+a b{
+  font-size: 16px;
+  color: black;
+}
+
+pre{
+  display: block;
+  text-align: left;
+  font-family: monospace;
+  width: 100%;
+  background: lightgoldenrodyellow;
+  padding: 10px;
+  font-size: 11px;
+  white-space: pre-wrap;       /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.hl{
+  background: lightblue;
+  color: black;
+}
+
+</style>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-140892543-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-140892543-1');
+</script>
+
+
+</head>
+<body>
+  <center>
+    <header>
+      <div class="container">
+        <div class="time">
+          <b>{{time}} UTC</b>
+        </div>
+        <ul class="menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/search">Block Search</a></li>
+        </ul>
+      </div>
+    </header>
+    <br/>
+    <h1>Enter Search String</h1>
+    <form method="GET" action="/search">
+      <input type="q" name="q" value="{{q}}"/><br/><br/>
+      <small>Enter a search string, for example <a href="/search?q=prev_blk_info">prev_blk_info</a> or some address <a href="/search?q=Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb">Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb</a> or a file hash <a href="/search?q=x688AC1069A584EAD26A6CB59DF2D8FF079DEAC92B3BF319505105013AD29635F">x688AC1069A584EAD26A6CB59DF2D8FF079DEAC92B3BF319505105013AD29635F</a></small><br/><br/>
+      <button type="submit">Submit</button>
+    </form>
+    <br/>
+    {% if q then %}
+    {% if res[1] then %}
+    <div class="container">
+      <ul class="paginator">
+        {% if page > 0 then %}
+          <li><a href="?q={{q}}&page={{page-1}}">Prev</a></li>
+        {% end %}
+        <li>{{page + 1}}</li>
+        <li><a href="?q={{q}}&page={{page+1}}">Next</a></li>
+      </ul>
+    </div>
+    <div class="container">
+      <pre>
+
+        {% for k, v in ipairs(res) do %}
+          <a href="" target="_blank"><b>{{v.header}} @ {{v.at}}</b></a>
+<div>
+{% line_prev, q_left, q_match, q_right, line_next = string.match(v.content, "\n?(%C*)\n?(%C*)("..q..")(%C*)\n?(%C*)\n?") %}
+...
+{{ line_prev }}
+{{ q_left }}<span class="hl">{{ q_match }}</span>{{ q_right }}
+{{ line_next }}
+...
+</div>
+        {% end %}
+      </pre>
+    </div>
+    <div class="container">
+      <ul class="paginator">
+        {% if page > 0 then %}
+          <li><a href="?q={{q}}&page={{page-1}}">Prev</a></li>
+        {% end %}
+        <li>{{page + 1}}</li>
+        <li><a href="?q={{q}}&page={{page+1}}">Next</a></li>
+      </ul>
+    </div>
+    {% else %}
+    <div class="container">
+      <pre>
+No results for <span class="hl">{{ q }}</span> request on the page
+      </pre>
+    </div>
+    {% end %}
+    {% end %}
+  </center>
+</body>
+</html>
