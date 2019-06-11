@@ -45,7 +45,7 @@ local limit = 10
 --
 
 -- query = "select at, header, content from ton.blocks where content LIKE ('%"..q.."%') ORDER BY `at` DESC LIMIT "..limit.." OFFSET "..(page * limit)..";"
-query = "select at, header, content from ton.blocks where MATCH(content) AGAINST ('"..q.."') ORDER BY `at` DESC LIMIT "..limit.." OFFSET "..(page * limit)..";"
+query = "select at, header, content from ton.blocks where MATCH(content) AGAINST ('"..q.."') LIMIT "..limit.." OFFSET "..(page * limit)..";"
 res, err, errcode, sqlstate = db:query(query)
 
 data = {
