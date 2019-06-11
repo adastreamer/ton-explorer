@@ -159,6 +159,7 @@ pre{
     </form>
     <br/>
     {% if q then %}
+    {% if q ~= "" then %}
     {% if res[1] then %}
     <div class="container">
       <ul class="paginator">
@@ -198,6 +199,7 @@ pre{
 No results for <span class="hl">{{ q }}</span> request on the page
       </pre>
     </div>
+    {% end %}
     {% end %}
     {% end %}
   </center>
