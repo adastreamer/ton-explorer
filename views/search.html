@@ -173,13 +173,10 @@ pre{
     <div class="container">
       <pre>
 
-        {% for k, v in ipairs(res) do %}
+        {% for k, v in ipairs(res) do %}{% q_i = tonumber(v.i) %}{% content_len = tonumber(v.len) %}{% q_len = string.len(q) %}{% s_start = q_i - 100 %}{% if (s_start < 0) then s_start = 0 end %}{% q_left = v.content:sub(s_start, q_i - 1) %}{% s_end = q_i + q_len + 100 %}{% if (s_end > content_len) then s_end = content_len end %}{% q_right = v.content:sub(q_i + q_len, s_end) %}
           <a href="/block/{{v.header}}?q={{q}}" target="_blank"><b>{{v.header}} @ {{v.at}}</b></a>
 <div>
-{% q_match = string.match(v.content, "("..q..")") %}
-...
-{{ v.sub }}
-...
+{{ q_left }}<span class="hl">{{ q }}</span>{{ q_right }}
 </div>
         {% end %}
       </pre>
