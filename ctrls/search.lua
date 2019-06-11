@@ -48,13 +48,10 @@ local limit = 10
 query = "select at, header, content from ton.blocks where MATCH(content) AGAINST ('"..q.."') ORDER BY `at` DESC LIMIT "..limit.." OFFSET "..(page * limit)..";"
 res, err, errcode, sqlstate = db:query(query)
 
-json_res = cjson.encode(res)
-
 data = {
   time = time,
   q = q,
   page = page,
-  json_res = json_res,
   res = res
 }
 
