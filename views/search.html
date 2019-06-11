@@ -174,11 +174,9 @@ pre{
         {% for k, v in ipairs(res) do %}
           <a href="" target="_blank"><b>{{v.header}} @ {{v.at}}</b></a>
 <div>
-{% line_prev, q_left, q_match, q_right, line_next = string.match(v.content, "\n?(%C*)\n?(%C*)("..q..")(%C*)\n?(%C*)\n?") %}
+{% q_left, q_match, q_right = string.match(v.content, "(%C*)("..q..")(%C*)") %}
 ...
-{{ line_prev }}
 {{ q_left }}<span class="hl">{{ q_match }}</span>{{ q_right }}
-{{ line_next }}
 ...
 </div>
         {% end %}
