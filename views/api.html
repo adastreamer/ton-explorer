@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TON Explorer | Home</title>
+  <title>TON Explorer | API</title>
   <link rel="shortcut icon" href="/favicon.ico"/>
   <link rel="apple-touch-icon image_src" href="/favicon.ico"/>
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
@@ -82,6 +82,19 @@ a:hover{
   text-decoration: none;
 }
 
+table{
+  text-align: left;
+  border-collapse: collapse;
+  border:1px solid #69899F;
+}
+table tr td, table tr th{
+  padding: 5px 10px;
+  border:1px solid #69899F;
+}
+table tr td{
+  font-size: 12px;
+}
+
 </style>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -112,12 +125,49 @@ a:hover{
       </div>
     </header>
     <br/>
-    <h1>Enter Address</h1>
-    <form method="POST" action="/address">
-      <input type="text" name="address"/><br/><br/>
-      <small>Enter address in any valid format, for example:<br/><a href="/address/8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d">8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d</a> or<br/><a href="/address/Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb">Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb</a></small><br/><br/>
-      <button type="submit">Submit</button>
-    </form>
+    <h1>Raw node API</h1>
+    <p>
+      Base endpoint - <i>https://explorer.test.ton.cryptoprocessing.io/api/</i><br/>
+      <a target="_blank" href="https://github.com/adastreamer/TON/tree/master/ton-test-liteclient-full/lite-client-with-webserver">sources here</a>
+    </p>
+    <h2>Codes</h2>
+    <p>
+      <b>HTTP 200</b> - Success, result presented as <i>{"result":...}</i> body<br/>
+      <b>HTTP 500</b> - Error, message presented as <i>{"error":...}</i> body&nbsp;
+    </p>
+    <h2>Methods</h2>
+    <table>
+      <tr>
+        <th>Endpoint</th>
+        <th>Method</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+      <tr>
+        <td><i>time</i></td>
+        <td>GET</td>
+        <td>TON server time</td>
+        <td><a target="_blank" href="/api/time">/api/time</a></td>
+      </tr>
+      <tr>
+        <td><i>last</i></td>
+        <td>GET</td>
+        <td>Last masterchain block ID</td>
+        <td><a target="_blank" href="/api/last">/api/last</a></td>
+      </tr>
+      <tr>
+        <td><i>getaccount</i></td>
+        <td>GET</td>
+        <td>Get account info</td>
+        <td><a target="_blank" href="/api/getaccount/Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb">/api/getaccount/Ef-BVndbeTJeXWLnQtm5bDC2UVpc0vH2TF2ksZPAPwcODSkb</a></td>
+      </tr>
+      <tr>
+        <td><i>getblock</i></td>
+        <td>GET</td>
+        <td>Get block info</td>
+        <td><a target="_blank" href="/api/getblock/(-1,8000000000000000,168513):15B636FF73072FF70F525B126C6DF772E9A0342F1FD0F5FBE3426D869B61A515:B1AA49E0E75332B1BFCD35E97630924420B9899137BC5D30571CEA07CFF50F11">/api/getblock/(-1,8000000000000000,168513):15B636FF73072FF70F525B126C6DF...</a></td>
+      </tr>
+    </table>
   </center>
 </body>
 </html>
