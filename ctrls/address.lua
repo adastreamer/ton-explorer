@@ -40,6 +40,7 @@ catch {
 
 res, err = httpc:request_uri("http://127.0.0.1:8000/getaccount/" .. address, { method = "GET" })
 local data = res.body
+local json_body = json.decode(res.body)
 
 try {
   function()
@@ -56,7 +57,7 @@ catch {
 data = {
   time = time,
   address = address,
-  data = data,
+  data = json_body.result,
   balance = balance
 }
 

@@ -53,10 +53,16 @@ if block then
   res, err = httpc:request_uri("http://127.0.0.1:8000/getblock/" .. block, { method = "GET" })
 end
 
+local json_body
 local block_data
+local block_vm
+local block_header
 
 if res then
-  block_data = res.body
+  json_body = json.decode(res.body).result
+  block_data = json_body.block
+  block_vm = json_body.vm
+  block_header = json_body.header
 end
 
 
@@ -64,6 +70,8 @@ data = {
   time = time,
   block = block,
   block_data = block_data,
+  block_vm = block_vm,
+  block_header = block_header,
   q = q
 }
 

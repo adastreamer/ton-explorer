@@ -20,15 +20,17 @@ local function init_db()
 end
 
 local function get_block(block_id)
-  local res, err = httpc:request_uri("http://127.0.0.1:8000/getblock/" .. block_id, { method = "GET" })
-  local data = res.body
-  -- local data_value = string.match(data, 'amount:.var_uint%s*len:(%d+)%s*value:(%d+)..')
+  local http_res, http_err = httpc:request_uri("http://127.0.0.1:8000/getblock/" .. block_id, { method = "GET" })
+  local json_body = json.decode(http_res.body)
+  local result = json_body.result
+  local data = result.block .. result.header .. result.vm
   local at, lt1, lt2 = string.match(data, "block header.+" .. block_id:gsub("%(", "%%%("):gsub("%)", "%%%)") .. " @ (%d+) lt (%d+) .. (%d+)")
   local res, err, errcode, sqlstate = db:query("insert into ton.blocks (at, lt1, lt2, header, content) values ('"..at.."','"..lt1.."','"..lt2.."','"..block_id.."','"..data.."');")
   if res then
     print("Parsed ", block_id)
   end
-  local previous_block_id = string.match(data, "previous block #.+: (.+)\n")
+
+  local previous_block_id = string.match(result.header, "previous block #.+: (.+)\n")
 
   res, err, errcode, sqlstate = db:query("select count(*) as count from ton.blocks where (header=\""..previous_block_id.."\");")
 

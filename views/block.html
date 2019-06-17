@@ -144,8 +144,14 @@ pre{
       <a class="small" href="/block">reset search</a>
     </form>
     <br/>
+    {% if block_header then %}
+      <pre><b>HEADER</b><br/>{*block_header*}</pre>
+    {% end %}
     {% if block_data then %}
-      <pre>{*block_data*}</pre>
+      <pre><b>DATA</b><br/>{*block_data*}</pre>
+    {% end %}
+    {% if block_vm then %}
+      <pre><b>VM</b><br/>{*block_vm*}</pre>
     {% end %}
   </center>
 </body>
